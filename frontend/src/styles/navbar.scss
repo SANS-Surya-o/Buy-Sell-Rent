@@ -1,0 +1,12 @@
+.nav-link{
+    text-decoration: none;
+}
+
+.nav-link:hover{
+    color: #f1f1f1;
+    // color: green;
+    text-decoration: none;
+    // Move up on hover
+    transform: translateY(-2px);
+    transition: transform 0.3s;
+}
