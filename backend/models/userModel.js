@@ -11,9 +11,13 @@ const userSchema = new mongoose.Schema(
     contactNumber: { type: Number},
     // store encrypted password
     password: { type: String},
-    items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
-    sellerReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+    items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+    // sellerReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
     isAdmin: { type: Boolean, required: true, default: false },
+    cart: [{
+        product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+        quantity: { type: Number, default: 1 }
+    }]
 },
     { timestamps: true }
 );

@@ -50,7 +50,7 @@ const createUser = asyncHandler(async (req, res) => {
         throw new Error('User could not be created');
     }
     
-    generateToken(res, user._id.toString());
+    let token = generateToken(res, user._id.toString());
 
 
     if (process.env.NODE_ENV === 'b_development'){
@@ -59,6 +59,7 @@ const createUser = asyncHandler(async (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
+            token: token
         });
     }
 
@@ -67,11 +68,13 @@ const createUser = asyncHandler(async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        token: token
     });
 
 });    
 
 const loginUser = asyncHandler( async(req, res)=>{
+    console.log("Login User");
     const {email, password} = req.body;
 
     if (!email || !password){
@@ -97,13 +100,14 @@ const loginUser = asyncHandler( async(req, res)=>{
                 isAdmin: user.isAdmin
             });
         }
-        generateToken(res, user._id);
+        let token = generateToken(res, user._id);
         res.status(200).json({
             _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
             isAdmin: user.isAdmin,
+            token: token
         });
     }else{
     // Invalid Password
@@ -114,8 +118,9 @@ const loginUser = asyncHandler( async(req, res)=>{
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
+    console.log("Logout User");
     res.cookie('jwt', "" , {
-        httpOnly: true,
+        httpOnly: false,
         expires: new Date(0),
     });
 
@@ -127,6 +132,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 
 const getUserProfile = asyncHandler(async (req, res) => {
+    console.log("Get User Profile");
     const user = await User.findById(req.user._id);
     if (!user){
         res.status(400);
@@ -145,6 +151,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 const updateCUrrentUserProfile = asyncHandler(async (req, res) => {
+    console.log("Update User Profile");
     const user = await User.findById(req.user._id);
     if (!user)
     {

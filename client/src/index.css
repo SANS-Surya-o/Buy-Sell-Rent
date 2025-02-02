@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import '@fontsource-variable/oswald';
+@import '@fontsource-variable/inter';
+@import '@fontsource/lato';
+@plugin 'daisyui';
+
+.Toastify__toast--success {
+    background-color: black !important;
+    color: white !important;
+  }
+  
+  .Toastify__toast--error {
+    background-color: black !important;
+    color: white !important;
+  }

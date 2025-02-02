@@ -12,7 +12,7 @@ const generateToken = (res, id) => {
     }
     // Set it in a  cookie
     res.cookie('jwt', token, {
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         // sameSite: "strict",
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
