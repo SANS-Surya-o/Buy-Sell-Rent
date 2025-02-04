@@ -29,6 +29,7 @@ dotenv.config();
 // Routes
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import supportRoutes from "./routes/supportRoutes.js"
 
 
 const PORT = process.env.PORT || 5000;
@@ -38,7 +39,7 @@ connectDB();
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
-
+app.use('/api/support' , supportRoutes );
 
 app.listen(PORT, ()=>{
     console.log(`Server listening on port ${PORT}`)

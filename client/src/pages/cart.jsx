@@ -25,10 +25,42 @@ import {
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import AppTheme from '../theme';
-import { GET_CART_ITEMS_URL } from '../constants';
+import { GET_CART_ITEMS_URL,BUY_FROM_CART_URL,UPDATE_CART_URL } from '../constants';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {  } from '../constants';
 
+
+
+const updateCart = async (cartItems) => {
+  try {
+    await axios.post(UPDATE_CART_URL, { cartItems }, { withCredentials: true });
+  } catch (error) {
+    toast.error('Failed to update cart');
+    throw error;
+  }
+};
+
+const placeOrder = async (cartItems, navigate) => {
+
+  for (const item of cartItems) {
+    if (item.quantity > item.product.maxQuantity) {
+      toast.error(`Cannot order more than ${item.product.maxQuantity} of ${item.product.name}`);
+      return;
+    }
+  }
+  try {
+     // Update cart quantities in the database
+    await updateCart(cartItems);
+    const response = await axios.post(BUY_FROM_CART_URL, {}, { withCredentials: true });
+    if (response.status === 200) {
+      toast.success('Order placed successfully!');
+      navigate('/orders'); // Redirect to orders page
+    }
+  } catch (error) {
+    toast.error('Failed to place order');
+  }
+};
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -55,13 +87,18 @@ const Cart = () => {
     const updateQuantity = (id, change) => {
       setCartItems(items =>
         items.map(item =>
-          item.product._id === id ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
+          item.product._id === id
+            ? { ...item, quantity: Math.max(1, Math.min(item.quantity + change, item.product.maxQuantity)) }
+            : item
         )
       );
+      updateCart(cartItems);
     };
   
     const removeItem = (id) => {
-      setCartItems(items => items.filter(item => item.product._id !== id));
+      const updatedItems = cartItems.filter(item => item.product._id !== id);
+      setCartItems(updatedItems);
+      updateCart(updatedItems);
     };
   
     const totalPrice = cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
@@ -203,9 +240,9 @@ const Cart = () => {
                 variant="contained"
                 fullWidth
                 size="large"
-                onClick={() => navigate('/checkout')}
+                onClick={() => placeOrder(cartItems, navigate)}
               >
-                Proceed to Checkout
+                Place Order
               </Button>
             </Paper>
           </Grid>

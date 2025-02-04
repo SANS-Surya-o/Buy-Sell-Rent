@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 import { LOGIN_URL } from '../../constants';
 
@@ -76,34 +76,43 @@ const Card = styled(MuiCard)(({ theme }) => {
 const Login = () => {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
+  const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [invalidCred, setInvalidCred] = React.useState(false);
+
   const navigate = useNavigate();
+  // const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
+
     if (!validateInputs()) return;
+
     const email = document.getElementById('email');
     const password = document.getElementById('password');
 
     try {
-      await axios.post(LOGIN_URL, {
-        email: email.value,
-        password: password.value
-      }, {
-        withCredentials: true
-      });
+      setLoading(true);
+      const response = await axios.post(
+        LOGIN_URL, 
+        { 
+          email: email.value, 
+          password: password.value,
+        },
+        { withCredentials: true }
+      );
 
       // Navigate to the dashboard
       navigate('/dashboard');
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
       setInvalidCred(true);
+    } finally {
+      setLoading(false);
     }
   };
+
 
   const validateInputs = () => {
     const email = document.getElementById('email');
@@ -136,8 +145,7 @@ const Login = () => {
   return (
     <ThemeProvider theme={AppTheme}>
       <SignInContainer direction="column" justifyContent="space-between">
-        <Card
-        >
+        <Card>
 
           <Title variant="h5" motto={false} />
           <Typography
@@ -202,6 +210,7 @@ const Login = () => {
             )}
             <Button
               type="submit"
+              disabled={loading}
               fullWidth
               variant="contained"
               onClick={validateInputs}

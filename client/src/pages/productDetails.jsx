@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import AppTheme from '../theme';
 import { GET_PRODUCT_DETAILS_URL } from '../constants';
+import addToCart from '../utils/addToCart';
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -65,51 +66,6 @@ const ProductDetails = () => {
                         spacing={4}
                         sx={{ height: '100%' }}
                     >
-                        {/* <Grid2
-                            container
-                            spacing={4}
-                            sx={{ height: '100%' }}
-                        >
-                            <Grid2
-                                item
-                                xs={12}
-                                md={6}
-                                sx={{
-                                    height: '100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        width: '600px',  // Fixed width
-                                        height: '400px', // Fixed height
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        overflow: 'hidden'
-                                    }}
-                                >
-                                    <Box
-                                        component="img"
-                                        src={product.image}
-                                        alt={product.name}
-                                        sx={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'contain',
-                                            borderRadius: 2,
-                                            boxShadow: 3,
-                                            transition: 'transform 0.3s ease-in-out',
-                                            '&:hover': {
-                                                transform: 'scale(1.02)'
-                                            }
-                                        }}
-                                    />
-                                </Box>
-                            </Grid2>
-                        </Grid2> */}
                         <CardMedia 
                          component="img"
                          sx={{ width: 600, height: 600 , objectFit: 'cover' }}
@@ -181,7 +137,8 @@ const ProductDetails = () => {
                                             Seller Info
                                         </Button>
                                     </Tooltip>
-
+                                    
+                                    { }
                                     <Button
                                         variant="contained"
                                         startIcon={<ShoppingCart />}
@@ -191,6 +148,11 @@ const ProductDetails = () => {
                                                 bgcolor: 'primary.dark',
                                             },
                                             transition: 'all 0.3s ease-in-out'
+                                        }}
+                                        onClick={ (e) => {
+                                            e.stopPropagation();
+                                            e.preventDefault();
+                                            addToCart(product._id,1)
                                         }}
                                     >
                                         Add to Cart

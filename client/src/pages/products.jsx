@@ -14,6 +14,7 @@ import { GET_PRODUCTS_URL } from '../constants';
 
 import axios from 'axios';
 import { categories } from '../constants';
+import BackgroundContainer from '../components/background';
 
 
 
@@ -98,7 +99,7 @@ const Products = () => {
     .filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategories.length === 0 || 
-        selectedCategories.includes(product.category);
+        selectedCategories.includes(product.category) || selectedCategories.includes('All');
       return matchesSearch && matchesCategory;
     })
     .sort((a, b) => {
@@ -107,7 +108,8 @@ const Products = () => {
     });
 
   const CategorySidebar = (
-    <Box sx={{ width: 240, p: 2 }}>
+    <Box sx={{ width: 240, p: 2 ,
+    }}>
       <Typography variant="h6" sx={{ mb: 2 }}>
         Categories
       </Typography>
@@ -137,6 +139,7 @@ const Products = () => {
   if (error) return <Alert severity="error">{error}</Alert>;
 
   return (
+    <BackgroundContainer>
     <Box sx={{ display: 'flex'}}>
       
         <Drawer
@@ -198,6 +201,7 @@ const Products = () => {
         </Container>
       </Box>
     </Box>
+    </ BackgroundContainer>
   );
 };
 

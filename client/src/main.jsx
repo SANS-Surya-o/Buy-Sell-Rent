@@ -10,7 +10,10 @@ import Profile from './pages/profile.tsx';
 import Products from './pages/products.jsx';
 import ProductDetails from './pages/productDetails.jsx';
 import Cart from './pages/cart.jsx';
+import Orders from './pages/orders.jsx';
+import Deliver from './pages/deliver.jsx';
 import PrivateRoute from './auth/privateRoute.jsx';
+import Support from "./pages/support";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Sell from './pages/sell.jsx';
@@ -19,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 createRoot(document.getElementById('root')).render(
   <>
+      {/* <GoogleReCaptchaProvider reCaptchaKey="6LfTpswqAAAAAN6c_CFGoFq20ZfTKYTAJmP417Su"> */}
   <Router>
     <Routes>
       <Route path="/landing" element={<Intro />} />
@@ -33,6 +37,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/profile" element={<Profile />} />
           <Route path="/sell" element={<Sell />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/deliver" element={<Deliver />} />
+          <Route path="/support" element={<Support />} />
           {/* </Route> */}
         </Route>
     </Routes>
@@ -48,6 +55,7 @@ createRoot(document.getElementById('root')).render(
         draggable
         pauseOnHover
       />
+      {/* </GoogleReCaptchaProvider> */}
   </>
 );
        

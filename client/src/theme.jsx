@@ -43,7 +43,20 @@ const AppTheme = createTheme({
         },
       },
     },
+    // MuiButton: {
+    //   styleOverrides: {
+    //     root: {
+    //       primary: {
+    //         // main: "#f50057",
+    //         background: "linear-gradient(45deg, #2a5298 30%, #1e3c72 90%)",
+    //       },
+
+         
+    //     },
+    //   },
+    // },
   },
+
 });
 
 export default AppTheme;

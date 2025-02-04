@@ -15,7 +15,15 @@ export const ADD_PRODUCT_URL = `${PRODUCTS_URL}/addproduct`;
 export const GET_PRODUCT_DETAILS_URL = `${PRODUCTS_URL}/getproductdetails`;
 export const ADD_TO_CART_URL = `${PRODUCTS_URL}/addtocart`;
 export const GET_CART_ITEMS_URL = `${PRODUCTS_URL}/getcartitems`;
+export const BUY_FROM_CART_URL = `${PRODUCTS_URL}/buyfromcart`;
+export const UPDATE_CART_URL = `${PRODUCTS_URL}/updatecart`;
+export const GET_ORDERS_URL = `${PRODUCTS_URL}/getorders`;
+export const GET_PENDING_ORDERS_URL = `${PRODUCTS_URL}/getpendingorders`;
+export const CLOSE_TRANSACTION_URL = `${PRODUCTS_URL}/closetransaction`;
 
+// Support 
+export const SUPPORT_URL = `${BASE_URL}/api/support`;
 
 // Categories
 export const categories = ['All', 'electronic', 'Clothing', 'Books', 'Beauty', 'Home', 'Other'];
+

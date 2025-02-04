@@ -34,7 +34,8 @@ const Background = styled(Stack)(({ theme }) => ({
 
 
 interface UserProfile {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   age?: number;
   contactNumber?: string;
@@ -131,7 +132,7 @@ const Profile = () => {
                 mb: 2
               }}
             >
-              {profile?.name ? profile.name[0].toUpperCase() : '?'}
+              {profile?.firstName ? profile.firstName[0].toUpperCase() : '?'}
             </Avatar>
 
             <Typography 
@@ -151,9 +152,18 @@ const Profile = () => {
           <form onSubmit={handleUpdate}>
             <TextField
               fullWidth
-              label="Name"
-              name="name"
-              value={profile.name}
+              label="First Name"
+              name="firstName"
+              value={profile.firstName || ''}
+              onChange={handleChange}
+              disabled={!isEditing}
+              margin="normal"
+            />
+            <TextField
+              fullWidth
+              label="Last Name"
+              name="lastName"
+              value={profile.lastName || ''}
               onChange={handleChange}
               disabled={!isEditing}
               margin="normal"

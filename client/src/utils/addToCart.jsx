@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 
 
-const addToCart = (async (product, quantity, navigate) => {
+const addToCart = (async (product, quantity) => {
 
     try {
         const response = await axios.post(ADD_TO_CART_URL, {
@@ -16,7 +16,6 @@ const addToCart = (async (product, quantity, navigate) => {
 
         if (response.status === 200) {
             toast.success('Product added to cart successfully!');
-            navigate('/cart');
         }
 
     } catch (error) {
@@ -26,6 +25,9 @@ const addToCart = (async (product, quantity, navigate) => {
             if (status === 400) {
                 if (data.message === 'own product') {
                     toast.error('You cannot add your own product to cart');
+                }
+                else{
+                    toast.error(data.message);
                 }
             } 
         }

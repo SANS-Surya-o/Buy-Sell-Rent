@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema(
         category: {type: String, required: true},
         image: { type: String, required: true },
         seller : { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+        maxQuantity: { type: Number, required: true , default: 1},
     },
     {
         timestamps: true,
