@@ -67,7 +67,7 @@ const AddProduct = asyncHandler(async (req, res) => {
 });
 
 const getProductDetails = asyncHandler(async (req,res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('seller', 'firstName lastName email');
 
     if (product) {
         res.json(product);

@@ -13,7 +13,7 @@ import Cart from './pages/cart.jsx';
 import Orders from './pages/orders.jsx';
 import Deliver from './pages/deliver.jsx';
 import PrivateRoute from './auth/privateRoute.jsx';
-import Support from "./pages/support";
+import Support from "./pages/support.jsx";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Sell from './pages/sell.jsx';

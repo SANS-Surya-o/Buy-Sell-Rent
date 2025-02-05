@@ -118,7 +118,7 @@ const signUp = () => {
             setLastNameErrorMessage('');
         }
 
-        if (!email.value || !/\S+@+\S+\.iiit\.ac\.in$/.test(email.value)) {
+        if (!email.value || !/^\S+@(students|research)\.iiit\.ac\.in$/.test(email.value)) {
             setEmailError(true);
             setEmailErrorMessage('Please enter a valid IIIT email address.');
             isValid = false;
